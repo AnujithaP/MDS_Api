@@ -625,7 +625,7 @@ namespace MDSPermissions.Services
             return medarbetare;
         }
 
-        private MemberIdentifier AddCoworker(Medarbetare medarbetare)
+        public async Task<Medarbetare> AddCoworker(Medarbetare medarbetare)
         {
             // Create the request object for entity creation.
             var createRequest = new EntityMembersCreateRequest() { };
@@ -755,13 +755,13 @@ namespace MDSPermissions.Services
                     Value = medarbetare.HOSP_ID
                 });
 
-            aNewMember.Attributes.Add(
-                new MDS.Attribute()
-                {
-                    Identifier = new Identifier() { Name = "Co-WorkerType", Id = Guid.NewGuid() },
-                    Type = AttributeValueType.Domain,
-                    Value = new MemberIdentifier() { Id = Guid.NewGuid(), Code = medarbetare.MedarbetarTyp.Id.ToString(), Name = medarbetare.MedarbetarTyp.Typ }
-                });
+            //aNewMember.Attributes.Add(
+            //    new MDS.Attribute()
+            //    {
+            //        Identifier = new Identifier() { Name = "Co-WorkerType", Id = Guid.NewGuid() },
+            //        Type = AttributeValueType.Domain,
+            //        Value = new MemberIdentifier() { Id = Guid.NewGuid(), Code = medarbetare.MedarbetarTyp.Id.ToString(), Name = medarbetare.MedarbetarTyp.Typ }
+            //    });
 
             aNewMember.Attributes.Add(
                 new MDS.Attribute()
@@ -787,29 +787,29 @@ namespace MDSPermissions.Services
                     Value = medarbetare.AnställningsForm
                 });
 
-            aNewMember.Attributes.Add(
-                new MDS.Attribute()
-                {
-                    Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.Label), Id = Guid.NewGuid() },
-                    Type = AttributeValueType.Domain,
-                    Value = new MemberIdentifier() { Id = Guid.NewGuid(), Code = medarbetare.Etikett.Id.ToString(), Name = medarbetare.Etikett.EtikettNamn }
-                });
+            //aNewMember.Attributes.Add(
+            //    new MDS.Attribute()
+            //    {
+            //        Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.Label), Id = Guid.NewGuid() },
+            //        Type = AttributeValueType.Domain,
+            //        Value = new MemberIdentifier() { Id = Guid.NewGuid(), Code = medarbetare.Etikett.Id.ToString(), Name = medarbetare.Etikett.EtikettNamn }
+            //    });
 
-            aNewMember.Attributes.Add(
-                new MDS.Attribute()
-                {
-                    Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.WorkCategory), Id = Guid.NewGuid() },
-                    Type = AttributeValueType.Domain,
-                    Value = new MemberIdentifier() { Id = Guid.NewGuid(), Code = medarbetare.Yrkeskategori.Id.ToString(), Name = medarbetare.Yrkeskategori.YrkeskategoriNamn }
-                });
+            //aNewMember.Attributes.Add(
+            //    new MDS.Attribute()
+            //    {
+            //        Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.WorkCategory), Id = Guid.NewGuid() },
+            //        Type = AttributeValueType.Domain,
+            //        Value = new MemberIdentifier() { Id = Guid.NewGuid(), Code = medarbetare.Yrkeskategori.Id.ToString(), Name = medarbetare.Yrkeskategori.YrkeskategoriNamn }
+            //    });
 
-            aNewMember.Attributes.Add(
-                new MDS.Attribute()
-                {
-                    Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.ManagerCode), Id = Guid.NewGuid() },
-                    Type = AttributeValueType.Domain,
-                    Value = new MemberIdentifier() { Id = Guid.NewGuid(), Name = medarbetare.Chefskod.Befogenheter, Code = medarbetare.Chefskod.Id.ToString() }
-                });
+            //aNewMember.Attributes.Add(
+            //    new MDS.Attribute()
+            //    {
+            //        Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.ManagerCode), Id = Guid.NewGuid() },
+            //        Type = AttributeValueType.Domain,
+            //        Value = new MemberIdentifier() { Id = Guid.NewGuid(), Name = medarbetare.Chefskod.Befogenheter, Code = medarbetare.Chefskod.Id.ToString() }
+            //    });
 
             aNewMember.Attributes.Add(
                 new MDS.Attribute()
@@ -819,13 +819,13 @@ namespace MDSPermissions.Services
                     Value = medarbetare.AnsvarigChef
                 });
 
-            aNewMember.Attributes.Add(
-                new MDS.Attribute()
-                {
-                    Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.ExtendedWorkCode), Id = Guid.NewGuid() },
-                    Type = AttributeValueType.Domain,
-                    Value = new MemberIdentifier() { Name = medarbetare.UtökadYrkeskod.Benämning, Code = medarbetare.UtökadYrkeskod.Id.ToString(), Id = Guid.NewGuid() }
-                });
+            //aNewMember.Attributes.Add(
+            //    new MDS.Attribute()
+            //    {
+            //        Identifier = new Identifier() { Name = Enum.GetName(CoWorkerAttributes.ExtendedWorkCode), Id = Guid.NewGuid() },
+            //        Type = AttributeValueType.Domain,
+            //        Value = new MemberIdentifier() { Name = medarbetare.UtökadYrkeskod.Benämning, Code = medarbetare.UtökadYrkeskod.Id.ToString(), Id = Guid.NewGuid() }
+            //    });
 
             aNewMember.Attributes.Add(
                 new MDS.Attribute()
@@ -847,11 +847,11 @@ namespace MDSPermissions.Services
             createRequest.Members.Members.Add(aNewMember);
 
             // Create a new entity member
-            EntityMembersCreateResponse createResponse = _service.EntityMembersCreate(createRequest);
+            EntityMembersCreateResponse createResponse = await _service.EntityMembersCreateAsync(createRequest);
             var newEntityMember = createResponse.CreatedMembers.FirstOrDefault();
             LastError = createResponse.OperationResult.Errors.Count;
 
-            return newEntityMember;
+            return medarbetare;
         }
 
         public async Task<IEnumerable<Medarbetare>> GetCoWorkers()

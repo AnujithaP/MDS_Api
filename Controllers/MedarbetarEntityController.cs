@@ -31,5 +31,11 @@ namespace MDSServiceApp.Controllers
         {
             return await _service.GetCoWorker(id);
         }
+
+        [HttpPost]
+        public async Task<Medarbetare> AddMedarbetare([FromBody]Medarbetare medarbetare )
+        {
+            return await _service.AddCoworker(medarbetare);
+        }
     }
 }

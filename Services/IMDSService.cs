@@ -13,7 +13,7 @@ namespace MDSPermissions.Services
         public Task<IEnumerable<Person>> GetPersoner();
         public Task<IEnumerable<Medarbetare>> GetCoWorkers();
         public Task<Medarbetare> GetCoWorker(string coworkerId);
-        //public Task AddCoworker(Medarbetare medarbetare);
+        public Task<Medarbetare> AddCoworker(Medarbetare medarbetare);
         public Task<Person> GetPerson(Guid personId);
         public Task<Person> AddPerson(Person person);
         public Task UpdatePerson(Person person);

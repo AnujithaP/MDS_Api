@@ -1,4 +1,6 @@
 using MDSPermissions.Services;
+using MDSServiceApp.Services;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,8 +8,9 @@ using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.Text;
+
 
 namespace MDSServiceApp
 {
@@ -23,6 +26,11 @@ namespace MDSServiceApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
@@ -32,6 +40,9 @@ namespace MDSServiceApp
 
             services.AddTransient<IMDSService, MDSService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMediatR(typeof(Startup));
+            services.AddCamunda(appSettings.CamundaRestApiUri);
+            services.AddSingleton<IRepository, Repository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

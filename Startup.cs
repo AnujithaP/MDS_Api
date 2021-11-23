@@ -1,4 +1,3 @@
-using MDSPermissions.Services;
 using MDSServiceApp.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;

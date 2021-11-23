@@ -1,9 +1,7 @@
-﻿using MDSPermissions.Data;
-using MDSPermissions.Services;
+﻿using MDSServiceApp.Models;
+using MDSServiceApp.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 

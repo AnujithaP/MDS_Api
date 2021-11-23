@@ -1,17 +1,12 @@
-﻿using MDSPermissions.Data;
+﻿using MDS;
+using MDSServiceApp.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using System.ServiceModel;
-using System.ServiceModel.Description;
-using MDS;
-using Microsoft.Extensions.Configuration;
-using MDSDataModels.Models;
 
-namespace MDSPermissions.Services
+namespace MDSServiceApp.Services
 {
     public class MDSService : IMDSService
     {

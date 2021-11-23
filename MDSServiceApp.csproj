@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>11834efd-7c26-4195-99b8-9f224df75106</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,9 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MDSDataModels">
-      <HintPath>..\MDSDataModels\MDSDataModels.dll</HintPath>
-    </Reference>
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
 

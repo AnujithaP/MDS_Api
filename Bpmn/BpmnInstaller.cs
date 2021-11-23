@@ -19,7 +19,7 @@ namespace MDSServiceApp
                 options.WorkerCount = 1;
             })
             .AddHandler<CreatePersonTaskHandler>()
-            .AddHandler<CreateMedarbetareTaskHandler>()
+            .AddHandler<CreateEpostTaskHandler>()
             .AddHandler<StoreDataTaskHandler>();
             
             return services;

@@ -1,13 +1,11 @@
-﻿using MDSPermissions.Data;
-using MDSPermissions.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using MDSServiceApp.Models;
+using MDSServiceApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MDSServiceApp.Controllers

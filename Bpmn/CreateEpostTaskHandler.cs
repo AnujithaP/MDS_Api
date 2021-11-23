@@ -1,29 +1,34 @@
 ﻿using Camunda.Worker;
-using MDSPermissions.Data;
-using MDSPermissions.Services;
+using MDSServiceApp.Models;
 using MDSServiceApp.Services;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 namespace MDSServiceApp.Bpmn
 {
     [HandlerTopics("Topic_GenerateEmail", LockDuration = 10_000)]
-    public class CreateMedarbetareTaskHandler : ExternalTaskHandler
+    public class CreateEpostTaskHandler : ExternalTaskHandler
     {
         private readonly IMediator _bus;
         private readonly IMDSService _service;
         private readonly IRepository _repository;
+        private readonly ILogger<CreateEpostTaskHandler> _logger;
 
-        public CreateMedarbetareTaskHandler(IMediator bus, IMDSService service, IRepository repository)
+        public CreateEpostTaskHandler(IMediator bus, IMDSService service, IRepository repository, ILogger<CreateEpostTaskHandler> logger)
         {
             _bus = bus;
             _service = service;
             _repository = repository;
+            _logger = logger;
         }
 
         public override async Task<IExecutionResult> Process(ExternalTask externalTask)
         {
+            _logger.LogInformation(externalTask.TopicName + " called.");
+
             var variabler = externalTask.Variables;
 
             var startdatum = DateTime.MinValue;

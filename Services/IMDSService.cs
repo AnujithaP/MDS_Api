@@ -1,15 +1,14 @@
 ﻿using MDS;
-using MDSPermissions.Data;
+using MDSServiceApp.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace MDSPermissions.Services
+namespace MDSServiceApp.Services
 {
     public interface IMDSService
     {
-        public Task<IEnumerable<Organisation>> GetOrganisations();
+        public Task<IEnumerable<MDSServiceApp.Models.Organisation>> GetOrganisations();
         public Task<IEnumerable<Person>> GetPersoner();
         public Task<IEnumerable<Medarbetare>> GetCoWorkers();
         public Task<Medarbetare> GetCoWorker(string coworkerId);

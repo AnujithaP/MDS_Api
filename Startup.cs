@@ -37,6 +37,16 @@ namespace MDSServiceApp
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MDSServiceApp", Version = "v1" });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", p =>
+                {
+                    p.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin();
+                });
+            });
+
             services.AddTransient<IMDSService, MDSService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMediatR(typeof(Startup));
@@ -54,7 +64,9 @@ namespace MDSServiceApp
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MDSServiceApp v1"));
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();   Do not use! Scripting HTTP will get a Redirect error befor proper data.
+
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 

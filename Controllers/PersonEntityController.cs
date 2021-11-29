@@ -1,4 +1,5 @@
 ﻿using MDSServiceApp.Models;
+using MDSServiceApp.Models.REST;
 using MDSServiceApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,22 @@ namespace MDSServiceApp.Controllers
         public async Task<Person> AddPerson([FromBody]Person person)
         {
             return await _service.AddPerson(person);
+        }
+
+        [HttpPost]
+        public async Task<Person> AddPersonParams(string förnamn, string efternamn, string personnummer)
+        {
+            var p = new Person() { Förnamn = förnamn, Efternamn = efternamn, Personnummer = personnummer };
+
+            return await _service.AddPerson(p);
+        }
+
+        [HttpPost]
+        public async Task<Person> AddPerson([FromBody]RestPerson person)
+        {
+            var p = new Person() { Förnamn = person.Förnamn, Efternamn = person.Efternamn, Personnummer = person.Personnummer };
+
+            return await _service.AddPerson(p);
         }
 
         [HttpPost]

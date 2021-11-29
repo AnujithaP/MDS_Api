@@ -69,7 +69,7 @@ namespace MDSServiceApp.Controllers
         }
 
         [HttpPost]
-        public async Task<Person> AddPerson([FromBody]RestPerson person)
+        public async Task<Person> AddRestPerson([FromBody]RestPerson person)
         {
             var p = new Person() { Förnamn = person.Förnamn, Efternamn = person.Efternamn, Personnummer = person.Personnummer };
 
